@@ -43,6 +43,7 @@ public class ConexionBDD {
 			
 			throw new BDDException("No se pudo conectar a la base");
 		} else {
+			System.out.println("Conexion inicializada");
 			return con;
 		}	
 	}

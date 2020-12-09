@@ -35,5 +35,11 @@
 			<version>9.1.1.jre8-preview</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.clearminds.bvc</groupId>
+			<artifactId>model</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
 </project>
