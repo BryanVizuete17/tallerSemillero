@@ -10,6 +10,14 @@ public class ServicioBase {
 	private Connection conexion;
 	
 	
+	public Connection getConexion() {
+		return conexion;
+	}
+
+	public void setConexion(Connection conexion) {
+		this.conexion = conexion;
+	}
+
 	public void abrirConexion() throws BDDException, SQLException{
 		conexion = ConexionBDD.obtenerConexion();
 	}

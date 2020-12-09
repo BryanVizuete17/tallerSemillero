@@ -1,5 +1,6 @@
 package com.clearminds.bvc.bdd;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,38 +14,40 @@ import com.clearminds.bvc.excepciones.BDDException;
 public class ConexionBDD {
 
 	
-	public static String leerpropiedad (String propiedad){
+	public static String leerpropiedad (String propiedad) throws FileNotFoundException, IOException {
+		File f=new File("conexion.properties");
+		System.out.println("ruta:"+f.getAbsoluteFile());
 		String property = null;
 		Properties p = new Properties();
-		try {
-			p.load(new FileReader("conexion.properties"));
-			if (p.getProperty(propiedad) != null) {
-				property = p.getProperty(propiedad).toString();
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		p.load(new FileReader("C:\\Users\\bvizuete\\Desktop\\tallersemillero\\tallerSemillero\\conexion.properties"));
+		if (p.getProperty(propiedad) != null) {
+			return  p.getProperty(propiedad);
 		}
+		
 
 		return property;
 	}
 	
 	
-	public static Connection obtenerConexion() throws BDDException, SQLException{
+	public static Connection obtenerConexion() throws BDDException{
 		Connection con = null;
-		String usuario = leerpropiedad("usuario");
-		String psswrd = leerpropiedad("password");
-		String url = leerpropiedad("urlConexion");
-		con = DriverManager.getConnection(url, usuario, psswrd);
-		if (con == null) {
-			
-			throw new BDDException("No se pudo conectar a la base");
-		} else {
-			System.out.println("Conexion inicializada");
+		String usuario;
+		String psswrd;
+		String url;
+		try {
+			usuario = leerpropiedad("usuario");
+			psswrd = leerpropiedad("password");
+			url = leerpropiedad("urlConexion");
+			con = DriverManager.getConnection(url, usuario, psswrd);
 			return con;
-		}	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new BDDException("No se pudo conectar a la base de datos");
+		}
+		
+		
 	}
+	
+	
 }
